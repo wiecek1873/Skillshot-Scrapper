@@ -1,16 +1,48 @@
 import requests
 from bs4 import BeautifulSoup
 
-url = "https://www.amazon.com/s?k=python+programming+books"
+url = "https://www.skillshot.pl/jobs/31190-grafik-generalista-at-jutsu-games-gameops"
 response = requests.get(url)
 soup = BeautifulSoup(response.content, "html.parser")
 
-products = soup.find_all("div", class_="s-result-item")
-for product in products:
-    title = product.find("h2").text.strip()
-    price = product.find("span", class_="a-offscreen")
-    if price:
-        price = price.text.strip()
-    else:
-        price = "Price not available"
-    print(f"Title: {title}\nPrice: {price}\n")
+#offer = soup.find("div", {"id": "job_presentation"})
+
+
+class Parser:
+    def __init__(self, soup):
+        self.soup = soup
+
+    def get_job_presentation(cls):
+        return cls.soup.find("div", {"id": "job_presentation"})
+
+
+xd = Parser(soup)
+
+print(xd.get_job_presentation())
+
+class JobOffer:
+    def __init__(
+        self,
+        title,
+        company,
+        location,
+        remote,
+        category,
+        job_type,
+        seniority,
+        requirements,
+        salary,
+        date,
+        views,
+    ):
+        self.title = title
+        self.company = company
+        self.location = location
+        self.remote = remote
+        self.category = category
+        self.job_type = job_type
+        self.seniority = seniority
+        self.requirements = requirements
+        self.salary = salary
+        self.date = date
+        self.views = views
