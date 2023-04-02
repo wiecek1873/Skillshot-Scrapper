@@ -43,9 +43,7 @@ def get_job_offer(url):
 
 base_url = "https://www.skillshot.pl/jobs/"
 
-xd = Parser(get_soup(base_url + "31000"))
-print(xd.get_views())
-#print(get_job_offer(base_url + "31000").__dict__)
+print(get_job_offer(base_url + "31004").__dict__)
 
 #while True:
 #    from_string = input("Please enter starting offer index: ")
