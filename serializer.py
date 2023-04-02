@@ -9,11 +9,10 @@ def serialize(file_name, job_offers):
         "Category",
         "Job_Type",
         "Seniority",
-        "Technology",
-        "Years_of_Experience",
         "Salary",
         "Date",
         "Views",
+        "Url"
     ]
 
     with open(file_name, mode="w", newline="") as f:

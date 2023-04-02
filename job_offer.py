@@ -8,11 +8,10 @@ class JobOffer:
         Category,
         Job_Type,
         Seniority,
-        Technology,
-        Years_of_Experience,
         Salary,
         Date,
         Views,
+        Url
     ):
         self.Title = Title
         self.Company = Company
@@ -21,8 +20,7 @@ class JobOffer:
         self.Category = Category
         self.Job_Type = Job_Type
         self.Seniority = Seniority
-        self.Technology = Technology
-        self.Years_of_Experience = Years_of_Experience
         self.Salary = Salary
         self.Date = Date
         self.Views = Views
+        self.Url = Url

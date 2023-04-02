@@ -21,7 +21,7 @@ class Parser:
         return self.job_presentation.find("b").getText()
 
     def get_location(self):
-        return self.job_presentation.find('p').text.split('w ')[1].strip()
+        return self.job_presentation.find('p').text.split(" w ",1)[1]
 
     def get_category(self):
         return self.job_presentation.find(
@@ -40,7 +40,7 @@ class Parser:
     def get_date(self):
         return (
             self.job_presentation.find(
-                string=lambda text: "data" in text.lower(), recursive=True
+                string=lambda text: "data publikacji:" in text.lower(), recursive=True
             )
             .find_next()
             .getText()
@@ -49,7 +49,7 @@ class Parser:
     def get_views(self):
         return (
             self.job_presentation.find(
-                string=lambda text: "liczba" in text.lower(), recursive=True
+                string=lambda text: "liczba wy" in text.lower(), recursive=True
             )
             .find_next()
             .getText()
@@ -65,12 +65,10 @@ class ParserGPT(Parser):
 
     def get_prompt(self):
         return (
-            'Extract the important entities mentioned in the text below. First extract is job fully remote, provide "yes", "no", "not specified" answer only. Then extract job seniority, provide "intern", "junior", "mid", "senior", "lead", "not specified" answers only. Then extract required technology comma separated. Then extract required years of experience. Finally extract salary, provide numbers only. \n'
+            'Extract the important entities mentioned in the text below. First extract is job fully remote, provide "yes", "no", "not specified" answer only. Then extract job seniority, provide "intern", "junior", "mid", "senior", "lead", "not specified" answers only. Finally extract salary, provide numbers only. \n'
             + "Desired format: \n"
             + "Fully remote: \n"
             + "Seniority: \n"
-            + "Technology: <technology-comma-separated> \n"
-            + "Experience: \n"
             + "Salary: \n"
             + f" \nText: ### \n {self.job_presentation_text} \n ###"
         )

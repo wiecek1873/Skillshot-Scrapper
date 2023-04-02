@@ -2,6 +2,7 @@ from typing import final
 import requests
 from bs4 import BeautifulSoup
 from skillshot_parser import ParserGPT
+from skillshot_parser import Parser
 from job_offer import JobOffer
 from serializer import serialize
 
@@ -29,11 +30,10 @@ def get_job_offer(url):
                 parser.get_category(),
                 parser.get_job_type(),
                 parser.get_seniority(),
-                parser.get_technology(),
-                parser.get_years_of_experience(),
                 parser.get_salary(),
                 parser.get_date(),
                 parser.get_views(),
+                url
         )
         else:
             return None
@@ -43,34 +43,34 @@ def get_job_offer(url):
 
 base_url = "https://www.skillshot.pl/jobs/"
 
-while True:
-    from_string = input("Please enter starting offer index: ")
-    if from_string.isdigit():
-        break
-    else:
-        print("Invalid input. Please enter a positive number.")
+xd = Parser(get_soup(base_url + "31000"))
+print(xd.get_views())
+#print(get_job_offer(base_url + "31000").__dict__)
 
-while True:
-    count_string = input("Please enter count: ")
-    if count_string.isdigit():
-        break
-    else:
-        print("Invalid input. Please enter a positive number.")
+#while True:
+#    from_string = input("Please enter starting offer index: ")
+#    if from_string.isdigit():
+#        break
+#    else:
+#        print("Invalid input. Please enter a positive number.")
 
-index_start = int(from_string)
-index_count = int(count_string)
+#while True:
+#    count_string = input("Please enter count: ")
+#    if count_string.isdigit():
+#        break
+#    else:
+#        print("Invalid input. Please enter a positive number.")
 
-offers = []
+#index_start = int(from_string)
+#index_count = int(count_string)
 
-try:
-    for index in range(index_start, index_start + index_count):
-        url = base_url + str(index)
-        print(f"Parsing offer with url {url}")
-        offers.append(get_job_offer(url))
+#offers = []
 
-#except Exception as e:
-#    print("An error occurred:", e)
-#    print("Interrupt...")
-finally:
-    print("Saving...")
-    serialize("job_offers.csv", offers)
+#try:
+#    for index in range(index_start, index_start + index_count):
+#        url = base_url + str(index)
+#        print(f"Parsing offer with url {url}")
+#        offers.append(get_job_offer(url))
+#finally:
+#    print("Saving...")
+#    serialize("job_offers.csv", offers)
