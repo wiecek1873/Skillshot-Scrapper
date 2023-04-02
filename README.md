@@ -7,4 +7,4 @@ Todo:
 - [ ] Remove experience
 - [ ] Search for keywords instead of technology
 - [ ] More deterministic salary
-
+- [ ] Fix missing date at 31000
