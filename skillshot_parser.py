@@ -1,6 +1,7 @@
 import openai
 from decouple import config
 
+
 class Parser:
     def __init__(self, soup):
         self.soup = soup
@@ -58,7 +59,7 @@ class ParserGPT(Parser):
 
     def get_prompt(self):
         return (
-            "Extract the important entities mentioned in the text below. First extract is job fully remote, provide \"yes\", \"no\", \"not specified\" answer only. Then extract job seniority, provide \"intern\", \"junior\", \"mid\", \"senior\", \"lead\", \"not specified\" answers only. Then extract required technology comma separated. Then extract required years of experience. Finally extract salary, provide numbers only. \n"
+            'Extract the important entities mentioned in the text below. First extract is job fully remote, provide "yes", "no", "not specified" answer only. Then extract job seniority, provide "intern", "junior", "mid", "senior", "lead", "not specified" answers only. Then extract required technology comma separated. Then extract required years of experience. Finally extract salary, provide numbers only. \n'
             + "Desired format: \n"
             + "Fully remote: \n"
             + "Seniority: \n"
@@ -77,4 +78,3 @@ class ParserGPT(Parser):
         )
         self.response = completion.choices[0].message
         return self.response
-
