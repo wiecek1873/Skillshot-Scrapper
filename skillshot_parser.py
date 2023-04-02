@@ -73,7 +73,7 @@ class ParserGPT(Parser):
         openai.api_key = config("OPENAI_API_KEY")
         completion = openai.Completion.create(
             model="gpt-3.5-turbo",
-            prompt="Say this is a test",
+            prompt=self.get_prompt(),
             temperature=0,
         )
         self.response = completion.choices[0].message
