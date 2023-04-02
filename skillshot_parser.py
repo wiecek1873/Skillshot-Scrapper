@@ -15,18 +15,18 @@ class Parser:
         return self.job_presentation != None
 
     def get_title(self):
-        return self.job_presentation.find("h1").getText()
+        return self.job_presentation.find("h1").getText().lower()
 
     def get_company(self):
-        return self.job_presentation.find("b").getText()
+        return self.job_presentation.find("b").getText().lower()
 
     def get_location(self):
-        return self.job_presentation.find('p').text.split(" w ",1)[1].split("\n")[0]
+        return self.job_presentation.find('p').text.split(" w ",1)[1].split("\n")[0].lower()
 
     def get_category(self):
         return self.job_presentation.find(
             "span", {"class": "badge badge-default badge-job-category"}
-        ).getText()
+        ).getText().lower()
 
     def get_job_type(self):
         return (
@@ -35,6 +35,7 @@ class Parser:
             )
             .find_previous()
             .getText()
+            .lower()
         )
 
     def get_date(self):
@@ -44,6 +45,7 @@ class Parser:
             )
             .find_next()
             .getText()
+            .lower()
         )
 
     def get_views(self):
@@ -53,6 +55,7 @@ class Parser:
             )
             .find_next()
             .getText()
+            .lower()
         )
 
 
@@ -65,11 +68,12 @@ class ParserGPT(Parser):
 
     def get_prompt(self):
         return (
-            'Extract the important entities mentioned in the text below. First extract is job fully remote, provide "yes", "no", "not specified" answer only. Then extract job seniority, provide "intern", "junior", "mid", "senior", "lead", "not specified" answers only. Finally extract salary, provide numbers only. \n'
+            'Extract the important entities mentioned in the text below. First extract is job fully remote, provide "yes", "no", "not specified" answer only. Then extract job seniority, provide "intern", "junior", "mid", "senior", "lead", "not specified" answers only. Then extract minimum salary like in example "5000". Then extract maximum salary like in example "10000". \n'
             + "Desired format: \n"
             + "Fully remote: \n"
             + "Seniority: \n"
-            + "Salary: \n"
+            + "Minimum salary: \n"
+            + "Maximum salary: \n"
             + f" \nText: ### \n {self.job_presentation_text} \n ###"
         )
 
@@ -90,22 +94,14 @@ class ParserGPT(Parser):
         if self.content == "":
             self.send_request()
 
-    def get_remote(self):
-        self.try_initialize()
-        return re.search(r"Fully remote: (.*)", self.content).group(1)
-
     def get_seniority(self):
         self.try_initialize()
-        return re.search(r"Seniority: (.*)", self.content).group(1)
+        return re.search(r"Seniority: (.*)", self.content).group(1).lower()
 
-    def get_technology(self):
+    def get_salary_min(self):
         self.try_initialize()
-        return re.search(r"Technology: (.*)", self.content).group(1)
+        return re.search(r"Minimum salary: (.*)", self.content).group(1).lower()
 
-    def get_years_of_experience(self):
+    def get_salary_max(self):
         self.try_initialize()
-        return re.search(r"Experience: (.*)", self.content).group(1)
-
-    def get_salary(self):
-        self.try_initialize()
-        return re.search(r"Salary: (.*)", self.content).group(1)
+        return re.search(r"Maximum salary: (.*)", self.content).group(1).lower()

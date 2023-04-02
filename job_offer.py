@@ -4,11 +4,11 @@ class JobOffer:
         Title,
         Company,
         Location,
-        Remote,
         Category,
         Job_Type,
         Seniority,
-        Salary,
+        Salary_Min,
+        Salary_Max,
         Date,
         Views,
         Url
@@ -16,11 +16,11 @@ class JobOffer:
         self.Title = Title
         self.Company = Company
         self.Location = Location
-        self.Remote = Remote
         self.Category = Category
         self.Job_Type = Job_Type
         self.Seniority = Seniority
-        self.Salary = Salary
+        self.Salary_Min = Salary_Min
+        self.Salary_Max = Salary_Max
         self.Date = Date
         self.Views = Views
         self.Url = Url
