@@ -15,7 +15,7 @@ class Parser:
         return self.job_presentation.find("b").getText()
 
     def get_location(self):
-        return self.job_presentation.find_all("b")[1].getText()
+        return self.job_presentation.find('p').text.split('w ')[1]
 
     def get_category(self):
         return self.job_presentation.find(
