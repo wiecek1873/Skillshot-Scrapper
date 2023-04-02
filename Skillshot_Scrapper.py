@@ -5,7 +5,7 @@ import openai
 from decouple import config
 from bs4 import BeautifulSoup
 
-url = "https://www.skillshot.pl/jobs/31190-grafik-generalista-at-jutsu-games-gameops"
+url = "https://www.skillshot.pl/jobs/31220"
 response = requests.get(url)
 soup = BeautifulSoup(response.content, "html.parser")
 
@@ -69,19 +69,20 @@ class ParserGPT(Parser):
 
     def get_prompt(self):
         return (
-            "Extract the important entities mentioned in the text below. First extract is job remote, provide yes or no answer only. Then extract job seniority, then extract required technology. Finally extract salary, provide numbers only. \n"
+            "Extract the important entities mentioned in the text below. First extract is job fully remote, provide \"yes\", \"no\", \"not specified\" answer only. Then extract job seniority, provide \"intern\", \"junior\", \"mid\", \"senior\", \"lead\", \"not specified\" answers only. Then extract required technology comma separated. Then extract required years of experience. Finally extract salary, provide numbers only. \n"
             + "Desired format: \n"
-            + " Is job remote \n"
-            + " Seniority \n"
-            + " Technology comma separated \n"
-            + " Salary \n"
+            + "Fully remote: \n"
+            + "Seniority: \n"
+            + "Technology: <technology-comma-separated> \n"
+            + "Experience: \n"
+            + "Salary: \n"
             + f" \nText: ### \n {self.job_presentation_text} \n ###"
         )
 
     def send_request(self):
         openai.api_key = config("OPENAI_API_KEY")
         completion = openai.Completion.create(
-            model="text-davinci-003",
+            model="gpt-3.5-turbo",
             prompt="Say this is a test",
             temperature=0,
         )
