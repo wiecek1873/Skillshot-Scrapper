@@ -8,3 +8,4 @@ Todo:
 - [ ] Search for keywords instead of technology
 - [ ] More deterministic salary
 - [ ] Fix missing date at 31000
+- [ ] Fix whitespace fuckup at ~31004
