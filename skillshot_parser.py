@@ -1,6 +1,5 @@
 import re
 import openai
-import json
 from decouple import config
 
 
@@ -11,6 +10,9 @@ class Parser:
 
         if self.job_presentation != None:
             self.job_presentation_text = self.job_presentation.getText()
+
+    def is_valid(self):
+        return self.job_presentation != None
 
     def get_title(self):
         return self.job_presentation.find("h1").getText()

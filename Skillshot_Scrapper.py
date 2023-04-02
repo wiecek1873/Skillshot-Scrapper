@@ -19,20 +19,24 @@ def get_job_offer(url):
     soup = get_soup(url)
     if soup != None:
         parser = ParserGPT(soup)
-        return JobOffer(
-            parser.get_title(),
-            parser.get_company(),
-            parser.get_location(),
-            parser.get_remote(),
-            parser.get_category(),
-            parser.get_job_type(),
-            parser.get_seniority(),
-            parser.get_technology(),
-            parser.get_years_of_experience(),
-            parser.get_salary(),
-            parser.get_date(),
-            parser.get_views(),
+
+        if(parser.is_valid()):
+            return JobOffer(
+                parser.get_title(),
+                parser.get_company(),
+                parser.get_location(),
+                parser.get_remote(),
+                parser.get_category(),
+                parser.get_job_type(),
+                parser.get_seniority(),
+                parser.get_technology(),
+                parser.get_years_of_experience(),
+                parser.get_salary(),
+                parser.get_date(),
+                parser.get_views(),
         )
+        else:
+            return None
     else:
         return None
 
@@ -64,9 +68,9 @@ try:
         print(f"Parsing offer with url {url}")
         offers.append(get_job_offer(url))
 
-except Exception as e:
-    print("An error occurred:", e)
-    print("Interrupt...")
+#except Exception as e:
+#    print("An error occurred:", e)
+#    print("Interrupt...")
 finally:
     print("Saving...")
     serialize("job_offers.csv", offers)
