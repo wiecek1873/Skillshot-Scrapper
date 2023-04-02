@@ -1,28 +1,28 @@
 class JobOffer:
     def __init__(
         self,
-        title,
-        company,
-        location,
-        remote,
-        category,
-        job_type,
-        seniority,
-        technology,
-        years_of_experience,
-        salary,
-        date,
-        views,
+        Title,
+        Company,
+        Location,
+        Remote,
+        Category,
+        Job_Type,
+        Seniority,
+        Technology,
+        Years_of_Experience,
+        Salary,
+        Date,
+        Views,
     ):
-        self.title = title
-        self.company = company
-        self.location = location
-        self.remote = remote
-        self.category = category
-        self.job_type = job_type
-        self.seniority = seniority
-        self.technology = technology
-        self.years_of_experience = years_of_experience
-        self.salary = salary
-        self.date = date
-        self.views = views
+        self.Title = Title
+        self.Company = Company
+        self.Location = Location
+        self.Remote = Remote
+        self.Category = Category
+        self.Job_Type = Job_Type
+        self.Seniority = Seniority
+        self.Technology = Technology
+        self.Years_of_Experience = Years_of_Experience
+        self.Salary = Salary
+        self.Date = Date
+        self.Views = Views

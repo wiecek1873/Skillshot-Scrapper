@@ -1,4 +1,6 @@
+import re
 import openai
+import json
 from decouple import config
 
 
@@ -6,7 +8,9 @@ class Parser:
     def __init__(self, soup):
         self.soup = soup
         self.job_presentation = soup.find("div", {"id": "job_presentation"})
-        self.job_presentation_text = self.job_presentation.getText()
+
+        if self.job_presentation != None:
+            self.job_presentation_text = self.job_presentation.getText()
 
     def get_title(self):
         return self.job_presentation.find("h1").getText()
@@ -15,7 +19,7 @@ class Parser:
         return self.job_presentation.find("b").getText()
 
     def get_location(self):
-        return self.job_presentation.find('p').text.split('w ')[1]
+        return self.job_presentation.find('p').text.split('w ')[1].strip()
 
     def get_category(self):
         return self.job_presentation.find(
@@ -55,7 +59,7 @@ class ParserGPT(Parser):
 
     def __init__(self, soup):
         super().__init__(soup)
-        self.response = ""
+        self.content = ""
 
     def get_prompt(self):
         return (
@@ -71,10 +75,37 @@ class ParserGPT(Parser):
 
     def send_request(self):
         openai.api_key = config("OPENAI_API_KEY")
-        completion = openai.Completion.create(
+        completion = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
-            prompt=self.get_prompt(),
+            messages=[
+                {"role" : "user", "content" : self.get_prompt()}
+            ],
             temperature=0,
         )
-        self.response = completion.choices[0].message
-        return self.response
+        
+        self.content = completion.choices[0].message.content
+        return self.content
+     
+    def try_initialize(self):
+        if self.content == "":
+            self.send_request()
+
+    def get_remote(self):
+        self.try_initialize()
+        return re.search(r"Fully remote: (.*)", self.content).group(1)
+
+    def get_seniority(self):
+        self.try_initialize()
+        return re.search(r"Seniority: (.*)", self.content).group(1)
+
+    def get_technology(self):
+        self.try_initialize()
+        return re.search(r"Technology: (.*)", self.content).group(1)
+
+    def get_years_of_experience(self):
+        self.try_initialize()
+        return re.search(r"Experience: (.*)", self.content).group(1)
+
+    def get_salary(self):
+        self.try_initialize()
+        return re.search(r"Salary: (.*)", self.content).group(1)

@@ -22,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="job_offer.py" />
+    <Compile Include="serializer.py" />
     <Compile Include="skillshot_parser.py" />
     <Compile Include="Skillshot_Scrapper.py" />
   </ItemGroup>
