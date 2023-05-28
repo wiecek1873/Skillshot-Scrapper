@@ -1,0 +1,10 @@
+csv
+os
+re
+openai
+decouple
+typing
+requests
+bs4
+random
+time
