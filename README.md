@@ -15,7 +15,7 @@ pip install -r requirements.txt
 The CSV file contains the following features (for each job offer):
 -  Title
 -  Company Name
--  Lication
+-  Location
 -  Category
 -  Job type
 -  Seniority
