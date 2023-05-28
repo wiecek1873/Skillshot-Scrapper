@@ -9,5 +9,5 @@ Todo:
 - [ ] More deterministic salary
 - [ ] Fix exepction at https://www.skillshot.pl/jobs/30908
 
-# Requirements:
+## Requirements:
 pip install -r requirements.txt
