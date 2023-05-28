@@ -1,4 +1,4 @@
-# Skillshot scrapper
+# Simple Skillshot scraper with python
 
 ## Todo:
 
